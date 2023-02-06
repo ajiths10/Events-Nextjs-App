@@ -5,11 +5,11 @@ const EventList: FC<any> = (props: any) => {
   const { items } = props;
 
   return (
-    <ul>
+    <div className="m-3 ">
       {items.map((buscat: any) => (
         <EventItem key={buscat.id} data={buscat} />
       ))}
-    </ul>
+    </div>
   );
 };
 
