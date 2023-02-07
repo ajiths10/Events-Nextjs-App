@@ -10,26 +10,29 @@ const EventItem: FC<any> = (props: datalist) => {
   const { data } = props;
 
   return (
-    <div className="flex flex-row  bg-slate-50 text-slate-400 md:min-w-[600px] overflow-hidden gap-2 m-5 md:min-h-[200px] rounded-lg hover:shadow-lg">
-      <div className="">
+    <div
+      className="grid md:grid-cols-3 sm:grid-cols-1 gap-2 bg-slate-50 text-slate-400 overflow-hidden  m-5
+     md:h-[300px] md:w-[600px] sm:h-[200px] sm:w-[500px] rounded-lg hover:shadow-lg"
+    >
+      <div className="col-span-1 w-full h-full bg-slate-400">
         <Image
           src={data.image}
-          alt="event image"
-          className="  "
-          width={300}
-          height={500}
+          alt="event image "
+          className=" object-cover h-full w-full"
+          width={200}
+          height={400}
         />
       </div>
-      <div className="flex flex-col w-full p-2">
+      <div className="md:col-span-2 sm:col-span-1 flex flex-col w-full p-5 relative ">
         <div className="font-mono">
           <div className="flex justify-between my-5 items-center">
-            <h2 className=" text-3xl font-bold text-slate-600">
+            <h2 className=" text-1xl font-bold text-slate-600">
               {" "}
               {data.title}
             </h2>
             <span className="text-xs">{data.date}</span>
           </div>
-          <div className=" max-w-[500px] my-3 text-slate-400">
+          <div className=" max-w-[300px] text-xs my-3 text-slate-400">
             <span> {data.description}</span>
           </div>
           <div className="text-slate-500">
@@ -37,7 +40,10 @@ const EventItem: FC<any> = (props: datalist) => {
           </div>
         </div>
 
-        <div className="flex hover:shadow-lg justify-center items-center mt-8 bg-slate-700 text-slate-200 hover:bg-slate-800 hover:text-slate-100 rounded-lg  font-semibold md:min-w-[80px] md:min-h-[40px] text-sm ">
+        <div
+          className=" absolute md:bottom-8 bottom-3 right-5 flex hover:shadow-lg justify-center items-center mt-8 bg-slate-700
+         text-slate-200 hover:bg-slate-800 hover:text-slate-100 md:rounded-lg rounded-md font-semibold md:h-[40px] md:w-[150px] sm:h-[30px] sm:w-[100px] text-sm"
+        >
           <Link href={`/events/${data.id}`}>Explore Events</Link>
         </div>
       </div>
