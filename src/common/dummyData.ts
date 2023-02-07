@@ -35,18 +35,18 @@ export const DUMMY_EVENTS = [
 ];
 
 export let MONTH_DATA = [
-  { id: 1, value: "jan" },
-  { id: 2, value: "Feb" },
-  { id: 3, value: "Mar" },
-  { id: 4, value: "Apr" },
+  { id: 1, value: "January" },
+  { id: 2, value: "February" },
+  { id: 3, value: "March" },
+  { id: 4, value: "April" },
   { id: 5, value: "May" },
-  { id: 6, value: "Jun" },
-  { id: 7, value: "Jul" },
-  { id: 8, value: "Aug" },
-  { id: 9, value: "Sep" },
-  { id: 10, value: "Oct" },
-  { id: 11, value: "Nov" },
-  { id: 12, value: "Dev" },
+  { id: 6, value: "June" },
+  { id: 7, value: "July" },
+  { id: 8, value: "August" },
+  { id: 9, value: "September" },
+  { id: 10, value: "October" },
+  { id: 11, value: "November" },
+  { id: 12, value: "December" },
 ];
 
 export let YEAR_DATA = [
