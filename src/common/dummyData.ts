@@ -33,3 +33,25 @@ export const DUMMY_EVENTS = [
     isFeatured: true,
   },
 ];
+
+export let MONTH_DATA = [
+  { id: 1, value: "jan" },
+  { id: 2, value: "Feb" },
+  { id: 3, value: "Mar" },
+  { id: 4, value: "Apr" },
+  { id: 5, value: "May" },
+  { id: 6, value: "Jun" },
+  { id: 7, value: "Jul" },
+  { id: 8, value: "Aug" },
+  { id: 9, value: "Sep" },
+  { id: 10, value: "Oct" },
+  { id: 11, value: "Nov" },
+  { id: 12, value: "Dev" },
+];
+
+export let YEAR_DATA = [
+  { id: 2020, value: "2020" },
+  { id: 2021, value: "2021" },
+  { id: 2022, value: "2022" },
+  { id: 2023, value: "2023" },
+];

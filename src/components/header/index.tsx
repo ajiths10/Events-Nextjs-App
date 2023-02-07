@@ -4,7 +4,7 @@ import React from "react";
 const Header = () => {
   return (
     <div className="bg-slate-600 h-[50px] grid grid-cols-12 p-3 w-full text-slate-200">
-      <div className="col-span-1 hover:font-semibold">
+      <div className="col-span-1 hover:font-semibold ml-5">
         <Link href="/">Home</Link>
       </div>
       <div className="col-span-10 ">

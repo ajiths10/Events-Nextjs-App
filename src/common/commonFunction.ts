@@ -5,13 +5,12 @@ interface dateFilter {
   month: number;
 }
 
-export function getFilteredEvents(dateFilter: any) {
-  const { year, month } = dateFilter;
-
-  let filteredEvents = DUMMY_EVENTS.filter((event) => {
+export function getFilteredEvents({ year, month }: dateFilter) {
+  let filteredEvents = DUMMY_EVENTS.filter((event: any) => {
     const eventDate = new Date(event.date);
+
     return (
-      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+      eventDate.getFullYear() == year && eventDate.getMonth() === month - 1
     );
   });
 
