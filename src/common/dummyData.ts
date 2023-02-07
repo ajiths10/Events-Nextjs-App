@@ -7,7 +7,7 @@ export const DUMMY_EVENTS = [
     location: "Somestreet 25, 12345 San Somewhereo",
     date: "2021-05-12",
     image:
-      "https://images.unsplash.com/photo-1541506618330-7c369fc759b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80",
+      "https://images.unsplash.com/photo-1661956600654-edac218fea67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80",
     isFeatured: false,
   },
   {
@@ -33,33 +33,3 @@ export const DUMMY_EVENTS = [
     isFeatured: true,
   },
 ];
-
-export function getFeaturedEvents() {
-  return DUMMY_EVENTS.filter((event) => event.isFeatured);
-}
-
-export function getAllEvents() {
-  return DUMMY_EVENTS;
-}
-
-interface dateFilter {
-  year: number;
-  month: number;
-}
-
-export function getFilteredEvents(dateFilter: any) {
-  const { year, month } = dateFilter;
-
-  let filteredEvents = DUMMY_EVENTS.filter((event) => {
-    const eventDate = new Date(event.date);
-    return (
-      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
-    );
-  });
-
-  return filteredEvents;
-}
-
-export function getEventById(id: number | string) {
-  return DUMMY_EVENTS.find((event) => event.id === id);
-}

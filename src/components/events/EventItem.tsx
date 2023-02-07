@@ -12,7 +12,7 @@ const EventItem: FC<any> = (props: datalist) => {
   return (
     <div
       className="grid md:grid-cols-3 sm:grid-cols-1 gap-2 bg-slate-50 text-slate-400 overflow-hidden  m-5
-     md:h-[300px] md:w-[600px] sm:h-[200px] sm:w-[500px] rounded-lg hover:shadow-lg"
+     md:h-[300px] md:w-[600px] sm:h-[200px] sm:w-[500px] rounded-lg hover:shadow-xl shadow-sm "
     >
       <div className="col-span-1 w-full h-full bg-slate-400">
         <Image
