@@ -4,13 +4,13 @@ import React from "react";
 const Header = () => {
   return (
     <div className="bg-slate-600 h-[50px] grid grid-cols-12 p-3 w-full text-slate-200">
-      <div className="col-span-1 hover:font-semibold ml-5">
+      <div className="col-span-2 lg:col-span-1 hover:font-semibold ml-5">
         <Link href="/">Home</Link>
       </div>
-      <div className="col-span-10 ">
+      <div className="col-span-6 lg:col-span-10 ml-5">
         <Link href="/events">All Events</Link>
       </div>
-      <div className="col-span-1 hover:cursor-pointer ">
+      <div className="col-span-4 lg:col-span-1 hover:cursor-pointer flex justify-end pr-2">
         <span className="hover:font-semibold">
           Logout{" "}
           <svg

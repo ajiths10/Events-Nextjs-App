@@ -5,7 +5,7 @@ const EventList: FC<any> = (props: any) => {
   const { items } = props;
 
   return (
-    <div className="m-3 grid md:grid-cols-2 sm:grid-cols-1">
+    <div className="p-3 grid lg:grid-cols-2 grid-cols-1 gap-5">
       {items.map((buscat: any) => (
         <EventItem key={buscat.id} data={buscat} />
       ))}

@@ -28,8 +28,8 @@ const FilterPannel: FC<any> = () => {
   return (
     <div className="flex w-full justify-end h-10">
       <p>filter panel&nbsp;</p>
-      <div className="grid grid-cols-6  w-[400px] gap-2">
-        <div className="col-span-2 text-slate-700">
+      <div className="grid grid-cols-6 w-[400px] gap-2">
+        <div className="sm:col-span-2 col-span-6 text-slate-700">
           <Select
             id="month"
             value={formik.values.month}
@@ -41,12 +41,14 @@ const FilterPannel: FC<any> = () => {
             error={formik.touched.month && Boolean(formik.errors.month)}
             // helperText={formik.touched.month && formik.errors.month}
           >
-            {MONTH_DATA.map((buscat) => (
-              <MenuItem value={buscat.id}>{buscat.value}</MenuItem>
+            {MONTH_DATA.map((buscat, i) => (
+              <MenuItem key={buscat.id} value={buscat.id}>
+                {buscat.value}
+              </MenuItem>
             ))}
           </Select>
         </div>
-        <div className="col-span-2">
+        <div className="sm:col-span-2 col-span-6">
           <Select
             fullWidth
             id="year"
@@ -59,11 +61,13 @@ const FilterPannel: FC<any> = () => {
             // helperText={formik.touched.year && formik.errors.year}
           >
             {YEAR_DATA.map((buscat) => (
-              <MenuItem value={buscat.id}>{buscat.value}</MenuItem>
+              <MenuItem key={buscat.id} value={buscat.id}>
+                {buscat.value}
+              </MenuItem>
             ))}
           </Select>
         </div>
-        <div className="col-span-2">
+        <div className="sm:col-span-2 col-span-6">
           <button
             className="flex bg-slate-400 content-center w-20 h-7 border justify-center text-black rounded-md"
             onClick={() => formik.handleSubmit()}

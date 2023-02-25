@@ -5,8 +5,8 @@ const EventDetails: FC<any> = (props: any) => {
   const { data } = props;
 
   return (
-    <div className="m-5 grid lg:grid-cols-6 sm:grid-cols-1 max-w-5xl ">
-      <div className="col-span-2">
+    <div className="m-5 grid lg:grid-cols-6 grid-cols-1 max-10/12 ">
+      <div className="col-span-2 m-auto">
         <Image
           src={data.image}
           alt="event image details"
