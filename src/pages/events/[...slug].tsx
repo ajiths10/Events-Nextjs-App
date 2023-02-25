@@ -31,7 +31,10 @@ const FilteredEvents = () => {
   return (
     <>
       <div className="flex flex-col content-center items-center ">
-        <div className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 text-slate-700  min-w-200 rounded-lg md:min-w-[1200px] md:min-h-[500px] items-center gap-[2rem]">
+        <div
+          className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg 
+        items-center gap-[2rem] w-10/12"
+        >
           {data.length ? (
             <DisplayPanel month={paramData.month} year={paramData.year} />
           ) : null}
