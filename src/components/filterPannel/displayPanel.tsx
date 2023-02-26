@@ -3,11 +3,11 @@ import Link from "next/link";
 import { findMonthAndYear } from "@/common/commonFunction";
 
 const DisplayPanel = ({ month, year }: { month: number; year: number }) => {
-  const [data, useData] = useState<any>({});
+  const [data, setData] = useState<any>({});
 
   useEffect(() => {
     let arr = findMonthAndYear({ month: month, year: year });
-    useData(arr);
+    setData(arr);
   }, [year, month]);
 
   return (
