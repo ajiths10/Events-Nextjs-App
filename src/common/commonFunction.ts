@@ -1,4 +1,5 @@
 import { DUMMY_EVENTS, YEAR_DATA, MONTH_DATA } from "./dummyData";
+import { getAllEvents } from "./dataFetch";
 
 interface dateFilter {
   year: number;
@@ -23,12 +24,9 @@ export function getEventById(id: number | string) {
   return [];
 }
 
-export function getFeaturedEvents() {
-  return DUMMY_EVENTS.filter((event) => event.isFeatured);
-}
-
-export function getAllEvents() {
-  return DUMMY_EVENTS;
+export async function getFeaturedEvents() {
+  let response = await getAllEvents();
+  return response.filter((event) => event.isFeatured);
 }
 
 export function findMonthAndYear({ month, year }: dateFilter) {

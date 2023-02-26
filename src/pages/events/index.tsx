@@ -1,9 +1,10 @@
-import { getAllEvents } from "@/common/commonFunction";
+import { getAllEvents } from "@/common/dataFetch";
+import { event } from "@/common/types/event";
 import EventList from "@/components/events/EventList";
 import FilterPannel from "@/components/filterPannel";
+import { GetStaticProps } from "next";
 
-const Events = () => {
-  const featuredEvents = getAllEvents();
+const Events = (props: { events: event[] }) => {
   return (
     <>
       <div className="flex flex-col content-center items-center ">
@@ -16,11 +17,18 @@ const Events = () => {
             All Events
             <hr />
           </h1>
-          <EventList items={featuredEvents} />
+          <EventList items={props.events} />
         </div>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const featuredEvents = await getAllEvents();
+  return {
+    props: { events: featuredEvents },
+  };
 };
 
 export default Events;
