@@ -18,10 +18,15 @@ export function getFilteredEvents({ year, month }: dateFilter) {
   return filteredEvents;
 }
 
-export function getEventById(id: number | string) {
-  let arr = DUMMY_EVENTS.find((event) => event.id === id);
-  if (arr) return arr;
-  return [];
+export async function getEventById(id: number | string) {
+  try {
+    let response = await getAllEvents();
+    let arr = response.find((event) => event.id === id);
+    if (arr) return arr;
+    return {};
+  } catch (error) {
+    return {};
+  }
 }
 
 export async function getFeaturedEvents() {

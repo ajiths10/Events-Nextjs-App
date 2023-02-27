@@ -3,29 +3,11 @@ import { getEventById } from "@/common/commonFunction";
 import { useRouter } from "next/router";
 import EventDetails from "@/components/events/EventDetails";
 import Link from "next/link";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { event } from "@/common/types/event";
+import { getAllEvents } from "@/common/dataFetch";
 
-interface res {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  date: string;
-  image: string;
-  isFeatured: boolean;
-}
-
-const EventDetail = () => {
-  const router: any = useRouter();
-
-  const [data, setData] = useState<res | any>({});
-
-  useEffect(() => {
-    if (router.isReady) {
-      let res = getEventById(router.query.eventId);
-      setData(res);
-    }
-  }, [router]);
-
+const EventDetail = (props: { event: event }) => {
   return (
     <>
       <div className="flex flex-col content-center items-center ">
@@ -37,8 +19,8 @@ const EventDetail = () => {
             Events details
           </h1>
 
-          {Object.keys(data).length ? (
-            <EventDetails data={data} />
+          {Object.keys(props.event).length ? (
+            <EventDetails data={props.event} />
           ) : (
             <div className="flex flex-col items-center">
               <div className="text-lg font-semibold">
@@ -58,6 +40,36 @@ const EventDetail = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  try {
+    const eventId = context?.params?.eventId as number | string;
+    let res = await getEventById(eventId);
+
+    if (!Object.keys(res).length) throw new Error("Empty");
+
+    return {
+      props: {
+        event: res,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+      notFound: true, //404 page handle
+    };
+  }
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  let events = await getAllEvents();
+  const paths = events?.map((event) => ({ params: { eventId: event.id } }));
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
 };
 
 export default EventDetail;
