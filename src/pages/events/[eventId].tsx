@@ -53,11 +53,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         event: res,
       },
+      revalidate: 900, //revalidate every 15mins
     };
   } catch (error) {
     return {
       props: {},
       notFound: true, //404 page handle
+      revalidate: 900, //revalidate every 15mins
     };
   }
 };
@@ -68,7 +70,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
