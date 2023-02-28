@@ -1,12 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
+import { event } from "@/common/types/event";
 
-interface datalist {
-  data: any;
-}
-
-const EventItem: FC<any> = (props: datalist) => {
+const EventItem: FC<any> = (props: { data: event }) => {
   const { data } = props;
 
   return (

@@ -4,29 +4,15 @@ import EventList from "@/components/events/EventList";
 import { getFilteredEvents } from "@/common/commonFunction";
 import Link from "next/link";
 import DisplayPanel from "@/components/filterPannel/displayPanel";
-interface odj {
-  month: number;
+import { GetServerSideProps } from "next";
+import { event } from "@/common/types/event";
+
+const FilteredEvents = (props: {
+  data: event[];
   year: number;
-}
-
-const FilteredEvents = () => {
-  const router: any = useRouter();
-  const [data, setData] = useState<any>([]);
-  const [paramData, setParamData] = useState<odj>({ month: 0, year: 0 });
-
-  useEffect(() => {
-    if (router.isReady) {
-      let year = Number(router.query.slug[0]);
-      let month = Number(router.query.slug[1]);
-
-      let arr = getFilteredEvents({
-        month: month,
-        year: year,
-      });
-      setParamData({ month: month, year: year });
-      setData(arr);
-    }
-  }, [router]);
+  month: number;
+}) => {
+  const { data, year, month } = props;
 
   return (
     <>
@@ -35,14 +21,12 @@ const FilteredEvents = () => {
           className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg 
         items-center gap-[2rem] w-10/12"
         >
-          {data.length ? (
-            <DisplayPanel month={paramData.month} year={paramData.year} />
-          ) : null}
+          {data?.length ? <DisplayPanel month={month} year={year} /> : null}
           <h1 className=" text-4xl font-bold font-sans mt-5 border-b-black">
             Filtered Events
             <hr />
           </h1>
-          {data.length ? (
+          {data?.length ? (
             <EventList items={data} />
           ) : (
             <div className="flex flex-col items-center">
@@ -61,6 +45,35 @@ const FilteredEvents = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const { params } = context;
+    let filteredData = params?.slug;
+    if (filteredData) {
+      let year = Number(filteredData[0]);
+      let month = Number(filteredData[1]);
+      let arr = await getFilteredEvents({
+        month: month,
+        year: year,
+      });
+      // if (!arr.length) throw new Error("Data not found!!");
+      return {
+        props: {
+          data: arr,
+          year,
+          month,
+        },
+      };
+    } else {
+      throw new Error("Data not found!!");
+    }
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default FilteredEvents;

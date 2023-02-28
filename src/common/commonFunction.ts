@@ -6,8 +6,10 @@ interface dateFilter {
   month: number;
 }
 
-export function getFilteredEvents({ year, month }: dateFilter) {
-  let filteredEvents = DUMMY_EVENTS.filter((event: any) => {
+export async function getFilteredEvents({ year, month }: dateFilter) {
+  let response = await getAllEvents();
+
+  let filteredEvents = response.filter((event: any) => {
     const eventDate = new Date(event.date);
 
     return (
