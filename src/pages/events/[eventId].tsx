@@ -6,10 +6,19 @@ import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { event } from "@/common/types/event";
 import { getAllEvents } from "@/common/dataFetch";
+import Head from "next/head";
 
 const EventDetail = (props: { event: event }) => {
   return (
     <>
+      <Head>
+        <title>{props?.event?.title}</title>
+        <meta
+          name="description"
+          content={`Next js Event App, Events - ${props?.event?.title}`}
+        />
+      </Head>
+
       <div className="flex flex-col content-center items-center ">
         <div
           className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg 
