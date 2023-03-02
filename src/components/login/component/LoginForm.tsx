@@ -2,8 +2,11 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string, ObjectSchema } from "yup";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
     password: string()
@@ -56,9 +59,14 @@ const LoginForm = () => {
       <div className="w-full text-slate-500">
         <label>
           New user?{" "}
-          <span className="underline font-semibold hover:cursor-pointer hover:text-slate-700">
+          <button
+            onClick={() => {
+              router.push("/signup");
+            }}
+            className="underline font-semibold hover:text-slate-700"
+          >
             Create an account.
-          </span>
+          </button>
         </label>
       </div>
     </form>

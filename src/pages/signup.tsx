@@ -1,19 +1,19 @@
-import LoginComponent from "@/components/login";
+import SignUpComponent from "@/components/signup";
 import Head from "next/head";
 import Image from "next/image";
 
-const Login = () => {
+const Signup = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
-        <meta name="description" content="Next js Login page" />
+        <title>Signup</title>
+        <meta name="description" content="Next js Signup page" />
       </Head>
 
       <div className="flex flex-col content-center items-center ">
         <div className="grid lg:grid-cols-12 m-5 shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg w-10/12 overflow-hidden">
           <div className="lg:col-span-5 relative">
-            <LoginComponent />
+            <SignUpComponent />
           </div>
           <div className="hidden lg:block lg:col-span-7">
             <Image
@@ -30,4 +30,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
