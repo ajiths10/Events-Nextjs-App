@@ -102,7 +102,7 @@ const SignupForm = () => {
           formik.touched.agree_terms && formik.errors.agree_terms
             ? "text-[#d32f2f]"
             : ""
-        }`}
+        } w-full`}
       >
         <input
           type="checkbox"

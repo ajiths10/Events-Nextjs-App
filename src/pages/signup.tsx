@@ -17,7 +17,7 @@ const Signup = () => {
           </div>
           <div className="hidden lg:block lg:col-span-7">
             <Image
-              src={"/images/stayaesthetic.png"}
+              src={"/images/rickandmorty.jpg"}
               className="object-cover h-full"
               alt="login-banner"
               height={1200}
