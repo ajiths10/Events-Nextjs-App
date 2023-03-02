@@ -1,7 +1,13 @@
 import Link from "next/link";
 import React from "react";
-
+import { useRouter } from "next/router";
 const Header = () => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    router.push("/login");
+  };
+
   return (
     <div className="bg-slate-600 h-[50px] grid grid-cols-12 p-3 w-full text-slate-200">
       <div className="col-span-2 lg:col-span-1 hover:font-semibold ml-5">
@@ -11,8 +17,8 @@ const Header = () => {
         <Link href="/events">All Events</Link>
       </div>
       <div className="col-span-4 lg:col-span-1 hover:cursor-pointer flex justify-end pr-2">
-        <span className="hover:font-semibold">
-          Logout{" "}
+        <button onClick={handleLogout} className="hover:font-semibold">
+          {true ? "Login" : "Logout"}{" "}
           <svg
             fill="none"
             stroke="currentColor"
@@ -28,7 +34,7 @@ const Header = () => {
               d="M5.636 5.636a9 9 0 1012.728 0M12 3v9"
             ></path>
           </svg>
-        </span>
+        </button>
       </div>
     </div>
   );
