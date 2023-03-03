@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import { object, string, ObjectSchema } from "yup";
+import { object, string } from "yup";
 import { useRouter } from "next/router";
 
 const LoginForm = () => {

@@ -3,9 +3,13 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string, ref, boolean } from "yup";
 import { useRouter } from "next/router";
+import { usePostSignup } from "@/services/auth/signup";
 
 const SignupForm = () => {
   const router = useRouter();
+
+  //service
+  const signupmutate = usePostSignup();
 
   const validationSchema = object({
     first_name: string().required("required"),
@@ -30,7 +34,9 @@ const SignupForm = () => {
       agree_terms: false,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      signupmutate.mutate(values);
+    },
   });
 
   return (
