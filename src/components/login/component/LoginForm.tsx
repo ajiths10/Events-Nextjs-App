@@ -4,12 +4,18 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
 import { useUserLogin } from "@/services/auth/login";
+import { useAuthentication } from "@/store/Auth";
 
 const LoginForm = () => {
   const router = useRouter();
 
   //services
   const loginHandle = useUserLogin();
+
+  //global states
+  const setAuthenticated = useAuthentication(
+    (state) => state.setAuthentication
+  );
 
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
@@ -18,6 +24,10 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
+  const onSuccessHandle = () => {
+    setAuthenticated(true);
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,7 +35,7 @@ const LoginForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      loginHandle.mutate(values);
+      loginHandle.mutate({ values, onSuccessHandle });
     },
   });
 
