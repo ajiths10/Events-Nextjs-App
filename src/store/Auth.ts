@@ -24,7 +24,10 @@ export const useAuthentication = create<Auth>()(
           set(() => ({
             token: token,
           })),
-        reset: () => set(initialState),
+        reset: () => {
+          set(initialState);
+          localStorage.removeItem("token");
+        },
       }),
       {
         name: "auth-data",

@@ -1,11 +1,21 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
+import { useAuthentication } from "@/store/Auth";
+
 const Header = () => {
   const router = useRouter();
 
+  //global states
+  const isAuthenticated = useAuthentication((state) => state.isAuthenticated);
+  const setLogout = useAuthentication((state) => state.reset);
+
   const handleLogout = () => {
-    router.push("/login");
+    if (isAuthenticated) {
+      setLogout();
+    } else {
+      router.push("/login");
+    }
   };
 
   return (
@@ -13,12 +23,14 @@ const Header = () => {
       <div className="col-span-2 lg:col-span-1 hover:font-semibold ml-5">
         <Link href="/">Home</Link>
       </div>
+
       <div className="col-span-6 lg:col-span-10 ml-5">
         <Link href="/events">All Events</Link>
       </div>
+
       <div className="col-span-4 lg:col-span-1 hover:cursor-pointer flex justify-end pr-2">
         <button onClick={handleLogout} className="hover:font-semibold">
-          {true ? "Login" : "Logout"}{" "}
+          {isAuthenticated ? "Logout" : "Login"}
           <svg
             fill="none"
             stroke="currentColor"
@@ -26,7 +38,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
-            className=" text-slate-100 w-5 h-5 inline-block"
+            className=" text-slate-100 w-5 h-5 inline-block ml-1"
           >
             <path
               strokeLinecap="round"
