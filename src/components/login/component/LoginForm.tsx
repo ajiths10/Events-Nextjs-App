@@ -3,9 +3,13 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
+import { useUserLogin } from "@/services/auth/login";
 
 const LoginForm = () => {
   const router = useRouter();
+
+  //services
+  const loginHandle = useUserLogin();
 
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
@@ -20,7 +24,9 @@ const LoginForm = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      loginHandle.mutate(values);
+    },
   });
 
   return (
@@ -53,7 +59,10 @@ const LoginForm = () => {
       <span className="w-full flex justify-end items-start mt-[-35px]">
         <button className="p-1 text-sm">forgot password</button>
       </span>
-      <button className="w-8/12 h-10 bg-slate-800 rounded-lg text-slate-300 text-lg font-semibold hover:bg-slate-700">
+      <button
+        type="submit"
+        className="w-8/12 h-10 bg-slate-800 rounded-lg text-slate-300 text-lg font-semibold hover:bg-slate-700"
+      >
         Login
       </button>
       <div className="w-full text-slate-500">
@@ -63,6 +72,7 @@ const LoginForm = () => {
             onClick={() => {
               router.push("/signup");
             }}
+            type="button"
             className="underline font-semibold hover:text-slate-700"
           >
             Create an account.

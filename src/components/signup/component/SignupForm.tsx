@@ -23,6 +23,7 @@ const SignupForm = () => {
       .required("required"),
     agree_terms: boolean().oneOf([true], "required"),
   });
+  const handleRedirection = () => router.push("/login");
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +36,7 @@ const SignupForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      signupmutate.mutate(values);
+      signupmutate.mutate({ values, handleRedirection });
     },
   });
 
@@ -132,6 +133,7 @@ const SignupForm = () => {
             onClick={() => {
               router.push("/login");
             }}
+            type="button"
             className="underline font-semibold hover:text-slate-700"
           >
             Login here.
