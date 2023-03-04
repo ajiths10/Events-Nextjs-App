@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { UNPROTETED_ROUTED } from "./routes";
+import { UNPROTETED_ROUTED, COMMON_ROUTES } from "./routes";
 import { useAuthentication } from "@/store/Auth";
 
 interface propsType {
@@ -15,13 +15,15 @@ const ProtestedRoutes = (props: propsType) => {
   const isAuthenticated = useAuthentication((state) => state.isAuthenticated);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      if (UNPROTETED_ROUTED.includes(route.pathname)) {
-        route.replace("/");
-      }
-    } else {
-      if (!UNPROTETED_ROUTED.includes(route.pathname)) {
-        route.replace("/login");
+    if (!COMMON_ROUTES.includes(route.pathname)) {
+      if (isAuthenticated) {
+        if (UNPROTETED_ROUTED.includes(route.pathname)) {
+          route.replace("/");
+        }
+      } else {
+        if (!UNPROTETED_ROUTED.includes(route.pathname)) {
+          route.replace("/login");
+        }
       }
     }
   }, [route, isAuthenticated]);
