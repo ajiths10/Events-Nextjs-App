@@ -42,7 +42,7 @@ const Header = () => {
         <div className="col-span-6 lg:col-span-10 ml-5">
           <Link href="/events">All Events</Link>
           {isAdminState ? (
-            <Link href="/admin" className="ml-5">
+            <Link href="/admin/create" className="ml-5">
               Admin
             </Link>
           ) : (
