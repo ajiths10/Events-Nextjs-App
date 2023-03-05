@@ -3,7 +3,11 @@ import axios from "axios";
 const client = axios.create({ baseURL: process.env.BASE_URL });
 
 export const request = ({ ...options }) => {
-  //client.defaults.headers.common.Authorization = `Bearer token`;
+  let token;
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("token");
+  }
+  client.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   //side effects
   const onSuccess = (response: any) => {

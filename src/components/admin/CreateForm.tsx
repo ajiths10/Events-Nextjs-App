@@ -6,9 +6,13 @@ import { useRouter } from "next/router";
 import { formvalues } from "./types/createForm";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useCreateEvent } from "@/services/events/createPost";
 
 const CreateForm = () => {
   const router = useRouter();
+
+  //services
+  let eventService = useCreateEvent();
 
   let initialValues: formvalues = {
     id: 0,
@@ -36,6 +40,7 @@ const CreateForm = () => {
     onSubmit: (values) => {
       delete values.id;
       console.log(values);
+      eventService.mutate(values);
     },
   });
 
