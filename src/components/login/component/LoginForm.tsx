@@ -16,6 +16,8 @@ const LoginForm = () => {
   const setAuthenticated = useAuthentication(
     (state) => state.setAuthentication
   );
+  const setUser = useAuthentication((state) => state.setUser);
+  const setToken = useAuthentication((state) => state.setToken);
 
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
@@ -24,8 +26,10 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
-  const onSuccessHandle = () => {
+  const onSuccessHandle = (payload: any) => {
     setAuthenticated(true);
+    setToken(payload.token);
+    setUser(payload.user);
   };
 
   const formik = useFormik({

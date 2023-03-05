@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuthentication } from "@/store/Auth";
 
@@ -9,28 +9,53 @@ const Header = () => {
   //global states
   const isAuthenticated = useAuthentication((state) => state.isAuthenticated);
   const setLogout = useAuthentication((state) => state.reset);
+  const is_admin = useAuthentication((state) => state.is_admin);
 
+  //local state
+  const [isAuthState, setAuthState] = useState(false);
+  const [isAdminState, setAdminState] = useState(false);
+
+  useEffect(() => {
+    setAuthState(isAuthenticated);
+    setAdminState(is_admin);
+  }, [isAuthenticated, is_admin]);
+
+  //handle logout
   const handleLogout = () => {
-    if (isAuthenticated) {
+    if (isAuthState) {
       setLogout();
-    } else {
-      router.push("/login");
     }
+    router.push("/login");
   };
 
   return (
     <div className="bg-slate-600 h-[50px] grid grid-cols-12 p-3 w-full text-slate-200">
-      <div className="col-span-2 lg:col-span-1 hover:font-semibold ml-5">
+      <div
+        className={`${
+          isAuthState ? "col-span-2 lg:col-span-1" : "col-span-8 lg:col-span-11"
+        }  hover:font-semibold ml-5`}
+      >
         <Link href="/">Home</Link>
       </div>
 
-      <div className="col-span-6 lg:col-span-10 ml-5">
-        <Link href="/events">All Events</Link>
-      </div>
+      {isAuthState ? (
+        <div className="col-span-6 lg:col-span-10 ml-5">
+          <Link href="/events">All Events</Link>
+          {isAdminState ? (
+            <Link href="/admin" className="ml-5">
+              Admin
+            </Link>
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div className="col-span-4 lg:col-span-1 hover:cursor-pointer flex justify-end pr-2">
         <button onClick={handleLogout} className="hover:font-semibold">
-          {isAuthenticated ? "Logout" : "Login"}
+          {isAuthState ? "logout" : "login"}
           <svg
             fill="none"
             stroke="currentColor"
