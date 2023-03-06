@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getEventById } from "@/common/commonFunction";
 import { useRouter } from "next/router";
 import EventDetails from "@/components/events/EventDetails";
 import Link from "next/link";
@@ -7,8 +6,13 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { event } from "@/common/types/event";
 import { getAllEvents } from "@/common/dataFetch";
 import Head from "next/head";
+import { useGetEventsById } from "@/services/events/getEventsById";
 
 const EventDetail = (props: { event: event }) => {
+  const router = useRouter();
+
+  const getEvent = useGetEventsById({ id: Number(router?.query?.eventId) });
+
   return (
     <>
       <Head>
@@ -28,8 +32,8 @@ const EventDetail = (props: { event: event }) => {
             Events details
           </h1>
 
-          {Object.keys(props.event).length ? (
-            <EventDetails data={props.event} />
+          {getEvent?.data?.data?.data.length ? (
+            <EventDetails data={getEvent?.data?.data?.data[0]} />
           ) : (
             <div className="flex flex-col items-center">
               <div className="text-lg font-semibold">
@@ -51,36 +55,36 @@ const EventDetail = (props: { event: event }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  try {
-    const eventId = context?.params?.eventId as number | string;
-    let res = await getEventById(eventId);
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   try {
+//     const eventId = context?.params?.eventId as number | string;
+//     let res = await getEventById(eventId);
 
-    if (!Object.keys(res).length) throw new Error("Empty");
+//     if (!Object.keys(res).length) throw new Error("Empty");
 
-    return {
-      props: {
-        event: res,
-      },
-      revalidate: 900, //revalidate every 15mins
-    };
-  } catch (error) {
-    return {
-      props: {},
-      notFound: true, //404 page handle
-      revalidate: 900, //revalidate every 15mins
-    };
-  }
-};
+//     return {
+//       props: {
+//         event: res,
+//       },
+//       revalidate: 900, //revalidate every 15mins
+//     };
+//   } catch (error) {
+//     return {
+//       props: {},
+//       notFound: true, //404 page handle
+//       revalidate: 900, //revalidate every 15mins
+//     };
+//   }
+// };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  let events = await getAllEvents();
-  const paths = events?.map((event) => ({ params: { eventId: event.id } }));
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   let events = await getAllEvents();
+//   const paths = events?.map((event) => ({ params: { eventId: event.id } }));
 
-  return {
-    paths: paths,
-    fallback: "blocking",
-  };
-};
+//   return {
+//     paths: paths,
+//     fallback: "blocking",
+//   };
+// };
 
 export default EventDetail;

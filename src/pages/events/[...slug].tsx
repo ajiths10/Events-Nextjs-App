@@ -21,12 +21,12 @@ const FilteredEvents = (props: {
           className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg 
         items-center gap-[2rem] w-10/12"
         >
-          {data?.length ? <DisplayPanel month={month} year={year} /> : null}
+          {[]?.length ? <DisplayPanel month={month} year={year} /> : null}
           <h1 className=" text-4xl font-bold font-sans mt-5 border-b-black">
             Filtered Events
             <hr />
           </h1>
-          {data?.length ? (
+          {[]?.length ? (
             <EventList items={data} />
           ) : (
             <div className="flex flex-col items-center">
@@ -47,33 +47,33 @@ const FilteredEvents = (props: {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  try {
-    const { params } = context;
-    let filteredData = params?.slug;
-    if (filteredData) {
-      let year = Number(filteredData[0]);
-      let month = Number(filteredData[1]);
-      let arr = await getFilteredEvents({
-        month: month,
-        year: year,
-      });
-      // if (!arr.length) throw new Error("Data not found!!");
-      return {
-        props: {
-          data: arr,
-          year,
-          month,
-        },
-      };
-    } else {
-      throw new Error("Data not found!!");
-    }
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   try {
+//     const { params } = context;
+//     let filteredData = params?.slug;
+//     if (filteredData) {
+//       let year = Number(filteredData[0]);
+//       let month = Number(filteredData[1]);
+//       let arr = await getFilteredEvents({
+//         month: month,
+//         year: year,
+//       });
+//       // if (!arr.length) throw new Error("Data not found!!");
+//       return {
+//         props: {
+//           data: arr,
+//           year,
+//           month,
+//         },
+//       };
+//     } else {
+//       throw new Error("Data not found!!");
+//     }
+//   } catch (error) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+// };
 
 export default FilteredEvents;

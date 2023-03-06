@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 interface filter {
   limit: number;
   page: number;
-  is_featured: boolean;
+  filter?: any;
 }
 
 const get = (data: filter) => {
@@ -15,5 +15,6 @@ export const useGetEvents = (filter: filter) => {
   return useQuery({
     queryKey: ["get-events", filter],
     queryFn: () => get(filter),
+    staleTime: 500000, // 5min keep the data as fresh
   });
 };

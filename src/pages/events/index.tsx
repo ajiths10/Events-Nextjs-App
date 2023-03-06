@@ -4,8 +4,14 @@ import EventList from "@/components/events/EventList";
 import FilterPannel from "@/components/filterPannel";
 import { GetStaticProps } from "next";
 import Head from "next/head";
+import { useGetEvents } from "@/services/events/getPost";
 
-const Events = (props: { events: event[] }) => {
+const Events = () => {
+  let filter = { limit: 10, page: 0 };
+
+  //services
+  const getEvents = useGetEvents(filter);
+
   return (
     <>
       <Head>
@@ -23,13 +29,14 @@ const Events = (props: { events: event[] }) => {
             All Events
             <hr />
           </h1>
-          <EventList items={props.events} />
+          <EventList items={getEvents?.data?.data?.data} />
         </div>
       </div>
     </>
   );
 };
 
+// For Ref
 export const getStaticProps: GetStaticProps = async () => {
   const featuredEvents = await getAllEvents();
   return {

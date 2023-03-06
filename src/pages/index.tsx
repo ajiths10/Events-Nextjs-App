@@ -7,7 +7,7 @@ import Head from "next/head";
 import { useGetEvents } from "@/services/events/getPost";
 
 export default function Home(props: { events: event[] }) {
-  let filter = { limit: 10, page: 0, is_featured: true };
+  let filter = { limit: 10, page: 0, filter: { is_featured: true } };
 
   //services
   const getEvents = useGetEvents(filter);
