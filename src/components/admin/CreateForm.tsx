@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string, number, boolean } from "yup";
@@ -23,6 +23,7 @@ const CreateForm = () => {
     image: "",
     is_featured: false,
   };
+  const [initialState, setInitialState] = useState(initialValues);
 
   const validationSchema = object({
     id: number(),
@@ -35,14 +36,24 @@ const CreateForm = () => {
   });
 
   const formik = useFormik({
-    initialValues: initialValues,
+    initialValues: initialState,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       delete values.id;
       console.log(values);
-      eventService.mutate(values);
+      eventService.mutate(values, {
+        onSuccess: () => {
+          alert("Done");
+          resetForm();
+        },
+      });
     },
   });
+
+  const resetForm = () => {
+    setInitialState(initialValues);
+    formik.resetForm();
+  };
 
   return (
     <form
