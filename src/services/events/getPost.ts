@@ -15,6 +15,6 @@ export const useGetEvents = (filter: filter) => {
   return useQuery({
     queryKey: ["get-events", filter],
     queryFn: () => get(filter),
-    staleTime: 500000, // 5min keep the data as fresh
+    //staleTime: 500000, // 5min keep the data as fresh
   });
 };

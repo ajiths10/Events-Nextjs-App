@@ -5,9 +5,10 @@ import FilterPannel from "@/components/filterPannel";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useGetEvents } from "@/services/events/getPost";
+import { useState } from "react";
 
 const Events = () => {
-  let filter = { limit: 10, page: 0 };
+  const [filter, setFilter] = useState({ limit: 10, page: 0 });
 
   //services
   const getEvents = useGetEvents(filter);
@@ -24,7 +25,7 @@ const Events = () => {
           className="flex flex-col p-5 m-5 border shadow-xl bg-slate-200 min-h-screen text-slate-700 rounded-lg 
         items-center gap-[2rem] w-10/12"
         >
-          <FilterPannel />
+          <FilterPannel setFilter={setFilter} filter={filter} />
           <h1 className=" text-4xl font-bold font-sans mt-5 border-b-black">
             All Events
             <hr />

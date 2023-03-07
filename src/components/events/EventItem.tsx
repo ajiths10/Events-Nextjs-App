@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { event } from "@/common/types/event";
+import moment from "moment";
 
 const EventItem: FC<any> = (props: { data: event }) => {
   const { data } = props;
@@ -24,7 +25,9 @@ const EventItem: FC<any> = (props: { data: event }) => {
         <div className="relative font-mono h-full flex flex-col justify-around gap-2">
           <div className="mt-5">
             <h2 className=" text-2xl font-bold text-slate-600">{data.title}</h2>
-            <span className="text-xs">{data.date}</span>
+            <span className="text-xs">
+              {moment(data.date).format("MMMM Do YYYY")}
+            </span>
           </div>
           <div className="text-sm text-slate-500">
             <span> {data.description}</span>

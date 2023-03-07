@@ -1,78 +1,62 @@
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import { useFormik } from "formik";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { YEAR_DATA, MONTH_DATA } from "@/common/dummyData";
 import { useRouter } from "next/router";
 import { object, number, string, ObjectSchema } from "yup";
+import TextField from "@mui/material/TextField";
 
-const FilterPannel: FC<any> = () => {
+const FilterPannel: FC<any> = ({ setFilter, filter }) => {
   const router = useRouter();
 
   const validationSchema: ObjectSchema<any> = object({
-    year: number().required("required"),
-    month: number().required("required"),
+    date: string().min(1, "required").required("required"),
   });
 
   const formik = useFormik({
-    initialValues: { month: 1, year: 2020 },
+    initialValues: { date: "" },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      if (values.year && values.month) {
-        router.push(`/events/${values.year}/${values.month}`);
-      }
+      delete filter?.filter?.date;
+      setFilter({ ...filter, filter: { date: values.date } });
     },
   });
 
+  const handleReset = () => {
+    let temp = { ...filter };
+    delete temp?.filter?.date;
+    setFilter(temp);
+  };
+
   return (
-    <div className="flex w-full lg:justify-end justify-between">
+    <div className="flex w-full justify-end items-center gap-2">
       <p>filter panel&nbsp;</p>
-      <div className="grid grid-cols-6 gap-2 w-8/12 lg:w-4/12">
-        <div className="sm:col-span-2 col-span-6 text-slate-700">
-          <Select
-            id="month"
-            value={formik.values.month}
-            label="month"
+      <div className="grid grid-cols-12 gap-2">
+        <div className="col-span-6 text-slate-700">
+          <TextField
             fullWidth
-            name="month"
-            className="w-full h-[30px]"
+            name="date"
+            type="date"
+            className=""
+            size="small"
+            placeholder="Select a date"
+            value={formik.values.date}
             onChange={formik.handleChange}
-            error={formik.touched.month && Boolean(formik.errors.month)}
-            // helperText={formik.touched.month && formik.errors.month}
-          >
-            {MONTH_DATA.map((buscat, i) => (
-              <MenuItem key={buscat.id} value={buscat.id}>
-                {buscat.value}
-              </MenuItem>
-            ))}
-          </Select>
+            error={formik.touched.date && Boolean(formik.errors.date)}
+            helperText={formik.touched.date && formik.errors.date}
+          />
         </div>
-        <div className="sm:col-span-2 col-span-6">
-          <Select
-            fullWidth
-            id="year"
-            value={formik.values.year}
-            label="year"
-            name="year"
-            className="w-full h-[30px]"
-            onChange={formik.handleChange}
-            error={formik.touched.year && Boolean(formik.errors.year)}
-            // helperText={formik.touched.year && formik.errors.year}
-          >
-            {YEAR_DATA.map((buscat) => (
-              <MenuItem key={buscat.id} value={buscat.id}>
-                {buscat.value}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-        <div className="sm:col-span-2 col-span-6">
+        <div className="flex col-span-6 gap-2">
           <button
-            className="flex bg-slate-400 content-center lg:w-20 w-10/12 m-auto h-7 border justify-center text-black rounded-md"
+            className="bg-slate-400 w-1/2 h-10 border-gray-400 border text-slate-200 rounded-md font-semibold "
             onClick={() => formik.handleSubmit()}
           >
-            Apply{" "}
+            Filter{" "}
+          </button>
+          <button
+            className="bg-slate-400 w-1/2 h-10 border-gray-400 border text-slate-200 rounded-md font-semibold "
+            onClick={handleReset}
+          >
+            Clear{" "}
           </button>
         </div>
       </div>
