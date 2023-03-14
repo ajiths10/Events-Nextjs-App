@@ -19,7 +19,7 @@ const LoginForm = () => {
   );
   const setUser = useAuthentication((state) => state.setUser);
   const setToken = useAuthentication((state) => state.setToken);
-  const setAlert = useSetAlert((state: any) => state.setAlert);
+  const setAlert = useSetAlert((state) => state.setAlert);
 
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
@@ -43,7 +43,14 @@ const LoginForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      loginHandle.mutate({ values, onSuccessHandle });
+      loginHandle.mutate(
+        { values, onSuccessHandle },
+        {
+          onSettled: (data) => {
+            setAlert({ ...data.response.data });
+          },
+        }
+      );
     },
   });
 
