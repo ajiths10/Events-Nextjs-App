@@ -4,12 +4,15 @@ import { useFormik } from "formik";
 import { object, string, ref, boolean } from "yup";
 import { useRouter } from "next/router";
 import { usePostSignup } from "@/services/auth/signup";
+import { useSetAlert } from "@/store/Alert";
 
 const SignupForm = () => {
   const router = useRouter();
 
   //service
   const signupmutate = usePostSignup();
+
+  const setAlert = useSetAlert((state) => state.setAlert);
 
   const validationSchema = object({
     first_name: string().required("required"),
@@ -36,7 +39,20 @@ const SignupForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      signupmutate.mutate({ values, handleRedirection });
+      signupmutate.mutate(values, {
+        onSuccess(data, variables, context) {
+          setAlert({ ...data.data });
+          if (data?.data?.status) {
+            handleRedirection();
+          }
+        },
+        onError(error, variables, context) {
+          //setAlert({ ...error.response.data });
+        },
+        onSettled(data, error, variables, context) {
+          //setAlert({ ...data.response.data });
+        },
+      });
     },
   });
 
