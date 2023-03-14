@@ -11,7 +11,7 @@ export const useUserLogin = () => {
     onSuccess: (data, variables, context) => {
       if (data?.data?.status) {
         localStorage.setItem("token", data.data.data.token);
-        variables.onSuccessHandle(data.data.data);
+        variables.onSuccessHandle(data.data);
       }
     },
     onError: () => {

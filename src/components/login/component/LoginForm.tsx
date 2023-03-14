@@ -5,6 +5,7 @@ import { object, string } from "yup";
 import { useRouter } from "next/router";
 import { useUserLogin } from "@/services/auth/login";
 import { useAuthentication } from "@/store/Auth";
+import { useSetAlert } from "@/store/Alert";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const LoginForm = () => {
   );
   const setUser = useAuthentication((state) => state.setUser);
   const setToken = useAuthentication((state) => state.setToken);
+  const setAlert = useSetAlert((state: any) => state.setAlert);
 
   const validationSchema = object({
     email: string().email("Enter a valid email").required("Email is required"),
@@ -28,8 +30,10 @@ const LoginForm = () => {
 
   const onSuccessHandle = (payload: any) => {
     setAuthenticated(true);
-    setToken(payload.token);
-    setUser(payload.user);
+    setToken(payload.data.token);
+    setUser(payload.data.user);
+    console.log(payload);
+    setAlert({ ...payload });
   };
 
   const formik = useFormik({
