@@ -12,6 +12,7 @@ const LocationBody = () => {
   });
   const center = useMemo(() => ({ lat: 24.886, lng: -70.268 }), []);
 
+  // Define the LatLng coordinates for the polygon's path.
   const paths = [
     { lat: 25.774, lng: -80.19 },
     { lat: 18.466, lng: -66.118 },
@@ -53,3 +54,5 @@ const LocationBody = () => {
 };
 
 export default LocationBody;
+
+/** @description https://developers.google.com/maps/documentation/javascript/examples/polygon-simple */
