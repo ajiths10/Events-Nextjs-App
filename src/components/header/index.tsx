@@ -39,10 +39,11 @@ const Header = () => {
       </div>
 
       {isAuthState ? (
-        <div className="col-span-6 lg:col-span-10 ml-5">
+        <div className="col-span-6 lg:col-span-10 ml-5 flex gap-4">
           <Link href="/events">All Events</Link>
+          <Link href="/events/Locations">Events Location</Link>
           {isAdminState ? (
-            <Link href="/admin/create" className="ml-5">
+            <Link href="/admin/create" className="">
               Admin
             </Link>
           ) : (
