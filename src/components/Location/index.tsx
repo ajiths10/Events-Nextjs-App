@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -7,10 +7,16 @@ import {
 } from "@react-google-maps/api";
 
 const LocationBody = () => {
+  const [mapRendered, setMapRedered] = useState(false);
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
   });
-  const center = useMemo(() => ({ lat: 24.886, lng: -70.268 }), []);
+
+  const center = useMemo(
+    () => ({ lat: 9.966264719076356, lng: 76.24227233899742 }),
+    []
+  );
 
   // Define the LatLng coordinates for the polygon's path.
   const paths = [
@@ -33,6 +39,12 @@ const LocationBody = () => {
     zIndex: 1,
   };
 
+  const onLoadHandler = (map: google.maps.Map) => {
+    setTimeout(() => {
+      setMapRedered(true);
+    }, 2000);
+  };
+
   return (
     <div className="h-96 w-10/12 bg-gray-300 rounded-lg overflow-hidden">
       {!isLoaded ? (
@@ -41,12 +53,17 @@ const LocationBody = () => {
         <GoogleMap
           mapContainerClassName="h-full w-full"
           center={center}
-          zoom={5}
+          zoom={12}
+          onLoad={onLoadHandler}
         >
-          {/* <Marker
-            position={{ lat: 9.966264719076356, lng: 76.24227233899742 }}
-          /> */}
-          <Polygon paths={paths} options={options} />
+          {mapRendered ? (
+            <Marker
+              position={{ lat: 9.966264719076356, lng: 76.24227233899742 }}
+            />
+          ) : (
+            <></>
+          )}
+          {/* <Polygon paths={paths} options={options} /> */}
         </GoogleMap>
       )}
     </div>
