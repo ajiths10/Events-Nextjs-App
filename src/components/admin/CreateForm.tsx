@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string, number, boolean } from "yup";
@@ -7,6 +7,9 @@ import { formvalues } from "./types/createForm";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useCreateEvent } from "@/services/events/createPost";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
+import FormUpload from "../common/form/FileUpload";
 
 const CreateForm = () => {
   const router = useRouter();
@@ -20,7 +23,7 @@ const CreateForm = () => {
     description: "",
     location: "",
     date: "",
-    image: "",
+    image: [],
     is_featured: false,
   };
   const [initialState, setInitialState] = useState(initialValues);
@@ -31,7 +34,7 @@ const CreateForm = () => {
     description: string().min(1, "required").required("required"),
     location: string().min(1, "required").required("required"),
     date: string().min(1, "required").required("required"),
-    image: string().min(1, "required").required("required"),
+    // image: string().min(1, "required").required("required"),
     is_featured: boolean(),
   });
 
@@ -82,11 +85,13 @@ const CreateForm = () => {
           helperText={formik.touched.date && formik.errors.date}
         />
       </span>
-      <TextField
-        fullWidth
+      <FormUpload
+        acceptedFileTypes={["image/*"]}
+        label="Image Upload "
+        maxFiles={5}
+        allowMultiple={true}
         name="image"
-        label="Image url"
-        type="text"
+        formik={formik}
         value={formik.values.image}
         onChange={formik.handleChange}
         error={formik.touched.image && Boolean(formik.errors.image)}

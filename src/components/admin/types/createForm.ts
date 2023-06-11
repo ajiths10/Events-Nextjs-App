@@ -4,6 +4,6 @@ export interface formvalues {
   description: string;
   location: string;
   date: string;
-  image: string;
+  image: any;
   is_featured: boolean;
 }
