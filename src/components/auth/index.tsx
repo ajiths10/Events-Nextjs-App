@@ -19,24 +19,24 @@ const ProtestedRoutes = (props: propsType) => {
   const isAuthenticated = useAuthentication((state) => state.isAuthenticated);
   const isAdmin = useAuthentication((state) => state.is_admin);
 
-  useEffect(() => {
-    if (!COMMON_ROUTES.includes(route.pathname)) {
-      if (isAuthenticated) {
-        if (UNPROTETED_ROUTED.includes(route.pathname)) {
-          route.replace("/");
-        }
-        if (ADMIN_PROTETED_ROUTES.includes(route.pathname)) {
-          if (!isAdmin) {
-            route.replace("/");
-          }
-        }
-      } else {
-        if (!UNPROTETED_ROUTED.includes(route.pathname)) {
-          route.replace("/login");
-        }
-      }
-    }
-  }, [route, isAuthenticated]);
+  // useEffect(() => {
+  //   if (!COMMON_ROUTES.includes(route.pathname)) {
+  //     if (isAuthenticated) {
+  //       if (UNPROTETED_ROUTED.includes(route.pathname)) {
+  //         route.replace("/");
+  //       }
+  //       if (ADMIN_PROTETED_ROUTES.includes(route.pathname)) {
+  //         if (!isAdmin) {
+  //           route.replace("/");
+  //         }
+  //       }
+  //     } else {
+  //       if (!UNPROTETED_ROUTED.includes(route.pathname)) {
+  //         route.replace("/login");
+  //       }
+  //     }
+  //   }
+  // }, [route, isAuthenticated]);
 
   return <>{props.children}</>;
 };
