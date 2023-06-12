@@ -5,16 +5,19 @@ import AES from 'crypto-js/aes';
 const S3_BUCKET = awsDetails.bucket;
 const REGION = awsDetails.region;
 
+// AWS setup
 AWS.config.update({
    accessKeyId: awsDetails.accessKeyId,
    secretAccessKey: awsDetails.secretAccessKey,
 });
 
+// S3 BUCKET SETUP
 const myBucket = new AWS.S3({
    params: { Bucket: S3_BUCKET },
    region: REGION,
 });
 
+// ADD NEW FILE TO S#
 export const awsUploadFile = (file) => {
    if (!file) return;
 
@@ -49,6 +52,7 @@ export const awsUploadFile = (file) => {
    });
 };
 
+// REMOVE FROM S3
 export const awsDeleteFile = (key) => {
    if (!key) return;
 
