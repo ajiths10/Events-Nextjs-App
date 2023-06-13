@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
-import { awsDetails } from "./data";
+import { awsDetails, BYTE_SIZE } from "./data";
 import AES from "crypto-js/aes";
+import { roundNumbers } from "../hooks/common";
 
 const S3_BUCKET = awsDetails.bucket;
 const REGION = awsDetails.region;
@@ -77,3 +78,40 @@ export const awsDeleteFile = (key: string) => {
       });
   });
 };
+
+export async function awsGetFileSize({
+  key,
+  getSizeInMb = false,
+  getRoundedValue = false,
+}: {
+  key: string;
+  getSizeInMb?: boolean;
+  getRoundedValue?: boolean;
+}) {
+  if (!key) return 0;
+
+  const params = {
+    Key: key,
+    Bucket: `${S3_BUCKET}`,
+  };
+
+  return myBucket
+    .headObject(params)
+    .promise()
+    .then((res) => {
+      if (getSizeInMb && res.ContentLength) {
+        let sizeInMb = res.ContentLength / BYTE_SIZE;
+
+        if (getRoundedValue) {
+          return roundNumbers(sizeInMb);
+        }
+
+        return sizeInMb;
+      }
+
+      return res.ContentLength;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
