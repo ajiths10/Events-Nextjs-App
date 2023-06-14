@@ -54,7 +54,9 @@ const FormUpload = (props: any) => {
   return (
     <>
       <div className={`w-full ${readOnly ? "cursor-not-allowed" : ""}`}>
-        <label className="mb-2">{label}</label>
+        <label className={`mb-2 ${helperText ? "text-rose-600" : ""}`}>
+          {label}
+        </label>
 
         <div className={`${readOnly ? "pointer-events-none" : ""}`}>
           <FilePond
