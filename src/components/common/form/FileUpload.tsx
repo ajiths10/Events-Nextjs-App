@@ -71,9 +71,7 @@ const FormUpload = (props: any) => {
         </div>
       </div>
 
-      {helperText && error ? (
-        <div className="text-rose-600">{helperText}</div>
-      ) : null}
+      {helperText ? <div className="text-rose-600">{helperText}</div> : null}
     </>
   );
 };

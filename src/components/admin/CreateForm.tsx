@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import { object, string, number, boolean } from "yup";
+import { object, string, number, boolean, array } from "yup";
 import { useRouter } from "next/router";
 import { formvalues } from "./types/createForm";
 import Switch from "@mui/material/Switch";
@@ -34,7 +34,7 @@ const CreateForm = () => {
     description: string().min(1, "required").required("required"),
     location: string().min(1, "required").required("required"),
     date: string().min(1, "required").required("required"),
-    // image: string().min(1, "required").required("required"),
+    image: array().min(1, "Required").required("Required"),
     is_featured: boolean(),
   });
 
