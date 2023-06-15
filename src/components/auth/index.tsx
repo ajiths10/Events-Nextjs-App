@@ -15,10 +15,11 @@ interface propsType {
 const ProtestedRoutes = (props: propsType) => {
   const route = useRouter();
 
-  //global states
+  // GLOBAL STATES
   const isAuthenticated = useAuthentication((state) => state.isAuthenticated);
   const isAdmin = useAuthentication((state) => state.is_admin);
 
+  // HANDLE ROUTE AUTH SECURITY
   useEffect(() => {
     if (!COMMON_ROUTES.includes(route.pathname)) {
       if (isAuthenticated) {
