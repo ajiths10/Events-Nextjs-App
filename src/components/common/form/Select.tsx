@@ -1,6 +1,8 @@
+import React from "react";
 import Select from "react-select";
+import { ISelect } from "./types";
 
-const FormSelect = (props: any) => {
+const FormSelect = (props: ISelect) => {
   const {
     label,
     isMulti = false,
@@ -13,14 +15,14 @@ const FormSelect = (props: any) => {
     options,
   } = props;
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue(name, e);
   };
 
   return (
     <div className={parentClass}>
       <label
-        htmlFor={props.id || name}
+        htmlFor={name}
         style={{
           color:
             formik.touched[name] && Boolean(formik.errors[name]) ? "red" : "",
