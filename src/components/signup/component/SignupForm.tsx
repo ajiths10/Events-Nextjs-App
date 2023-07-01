@@ -5,6 +5,8 @@ import { object, string, ref, boolean } from "yup";
 import { useRouter } from "next/router";
 import { usePostSignup } from "@/services/auth/signup";
 import { useSetAlert } from "@/store/Alert";
+import FormSelect from "@/components/common/form/Select";
+import { useGetCountryOptions } from "@/components/common/hooks/common";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -13,6 +15,9 @@ const SignupForm = () => {
   const signupmutate = usePostSignup();
 
   const setAlert = useSetAlert((state) => state.setAlert);
+
+  // Custom hook
+  const countryOptions = useGetCountryOptions();
 
   const validationSchema = object({
     first_name: string().required("required"),
@@ -119,6 +124,15 @@ const SignupForm = () => {
         helperText={
           formik.touched.confirm_password && formik.errors.confirm_password
         }
+      />
+
+      <FormSelect
+        parentClass={"mb-8"}
+        label="Sub Admin Types"
+        name="sub_admin"
+        options={countryOptions}
+        isClearable={true}
+        formik={formik}
       />
       <div
         className={`${

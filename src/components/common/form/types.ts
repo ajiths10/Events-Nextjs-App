@@ -1,6 +1,6 @@
 export interface ISelect {
   label: string;
-  isMulti: false | true;
+  isMulti?: false | true;
   disabled?: boolean;
   isRequired?: Boolean;
   isClearable?: boolean;
