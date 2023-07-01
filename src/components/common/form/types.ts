@@ -5,6 +5,7 @@ export interface ISelect {
   isRequired?: Boolean;
   isClearable?: boolean;
   parentClass?: string;
+  containerClass?: string;
   name: string;
   formik: any;
   options?: any;

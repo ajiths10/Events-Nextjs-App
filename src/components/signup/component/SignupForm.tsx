@@ -30,6 +30,13 @@ const SignupForm = () => {
       .oneOf([ref("password"), null], "Passwords must match")
       .required("required"),
     agree_terms: boolean().oneOf([true], "required"),
+    country: object()
+      .nullable()
+      .shape({
+        label: string().required(),
+        value: string().required(),
+      })
+      .required("Required"),
   });
   const handleRedirection = () => router.push("/login");
 
@@ -41,6 +48,7 @@ const SignupForm = () => {
       password: "",
       confirm_password: "",
       agree_terms: false,
+      country: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -127,9 +135,10 @@ const SignupForm = () => {
       />
 
       <FormSelect
-        parentClass={"mb-8"}
-        label="Sub Admin Types"
-        name="sub_admin"
+        parentClass={"w-full h-20 bg-transparent"}
+        containerClass={"w-full bg-transparent"}
+        label="Country"
+        name="country"
         options={countryOptions}
         isClearable={true}
         formik={formik}

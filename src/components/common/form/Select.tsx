@@ -13,6 +13,7 @@ const FormSelect = (props: ISelect) => {
     name,
     formik,
     options,
+    containerClass,
   } = props;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +25,10 @@ const FormSelect = (props: ISelect) => {
       <label
         htmlFor={name}
         style={{
-          color:
-            formik.touched[name] && Boolean(formik.errors[name]) ? "red" : "",
+          color: Boolean(formik.errors[name]) ? "red" : "",
         }}
       >
-        {formik.touched[name] && Boolean(formik.errors[name]) && (
+        {Boolean(formik.errors[name]) && (
           <span className="text-red-600">*</span>
         )}
         {label}
@@ -41,12 +41,11 @@ const FormSelect = (props: ISelect) => {
         isDisabled={disabled}
         isClearable={isClearable}
         options={options}
+        className={containerClass}
       />
 
-      {formik.touched[name] && Boolean(formik.errors[name]) ? (
-        <div className="text-red-600">
-          {formik.touched[name] && formik.errors[name]}
-        </div>
+      {Boolean(formik.errors[name]) ? (
+        <div className="text-red-600">{formik.errors[name]}</div>
       ) : null}
     </div>
   );
