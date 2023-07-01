@@ -9,6 +9,7 @@ export const roundNumbers = (value?: string | number) => {
   return Number(valueAsNumber).toFixed(2);
 };
 
+// RETURN COUNTRY OPTION
 export const useGetCountryOptions = () => {
   const countryOptions = Country.getAllCountries().map((item) => ({
     label: item.name,

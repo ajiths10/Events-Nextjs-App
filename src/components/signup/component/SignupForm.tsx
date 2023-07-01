@@ -16,7 +16,7 @@ const SignupForm = () => {
 
   const setAlert = useSetAlert((state) => state.setAlert);
 
-  // Custom hook
+  //CUSTOM HOOK
   const countryOptions = useGetCountryOptions();
 
   const validationSchema = object({
@@ -133,10 +133,9 @@ const SignupForm = () => {
           formik.touched.confirm_password && formik.errors.confirm_password
         }
       />
-
       <FormSelect
         parentClass={"w-full h-20 bg-transparent"}
-        containerClass={"w-full bg-transparent"}
+        containerClass={"w-full bg-transparent border-red-600"}
         label="Country"
         name="country"
         options={countryOptions}
