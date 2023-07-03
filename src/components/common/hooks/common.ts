@@ -18,3 +18,15 @@ export const useGetCountryOptions = () => {
 
   return countryOptions;
 };
+
+// RETURN STATE OPTION
+export const useGetStateOptions = (country: string) => {
+  let stateOptions = State?.getStatesOfCountry?.(String(country)).map(
+    (item) => ({
+      label: item.name,
+      value: item.isoCode,
+    })
+  );
+
+  return stateOptions;
+};
