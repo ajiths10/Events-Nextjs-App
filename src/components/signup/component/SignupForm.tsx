@@ -6,7 +6,10 @@ import { useRouter } from "next/router";
 import { usePostSignup } from "@/services/auth/signup";
 import { useSetAlert } from "@/store/Alert";
 import FormSelect from "@/components/common/form/Select";
-import { useGetCountryOptions } from "@/components/common/hooks/common";
+import {
+  useGetCountryOptions,
+  useGetStateOptions,
+} from "@/components/common/hooks/common";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -18,6 +21,7 @@ const SignupForm = () => {
 
   //CUSTOM HOOK
   const countryOptions = useGetCountryOptions();
+  const stateOptions = useGetStateOptions();
 
   const validationSchema = object({
     first_name: string().required("required"),
@@ -134,11 +138,20 @@ const SignupForm = () => {
         }
       />
       <FormSelect
-        parentClass={"w-full h-20 bg-transparent"}
+        parentClass={"w-full bg-transparent"}
         containerClass={"w-full bg-transparent border-red-600"}
         label="Country"
         name="country"
         options={countryOptions}
+        isClearable={true}
+        formik={formik}
+      />
+      <FormSelect
+        parentClass={"w-full bg-transparent"}
+        containerClass={"w-full bg-transparent border-red-600"}
+        label="State"
+        name="state"
+        options={stateOptions}
         isClearable={true}
         formik={formik}
       />

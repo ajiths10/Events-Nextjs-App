@@ -20,7 +20,8 @@ export const useGetCountryOptions = () => {
 };
 
 // RETURN STATE OPTION
-export const useGetStateOptions = (country: string) => {
+export const useGetStateOptions = (country?: string) => {
+  if (!country) return [];
   let stateOptions = State?.getStatesOfCountry?.(String(country)).map(
     (item) => ({
       label: item.name,
