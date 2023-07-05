@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { object, string, ref, boolean } from "yup";
@@ -10,9 +10,21 @@ import {
   useGetCountryOptions,
   useGetStateOptions,
 } from "@/components/common/hooks/common";
+import { ISignUpInitialValues } from "../type";
+
+let initialValues: ISignUpInitialValues = {
+  first_name: "",
+  last_name: "",
+  email: "",
+  password: "",
+  confirm_password: "",
+  agree_terms: false,
+  country: [],
+};
 
 const SignupForm = () => {
   const router = useRouter();
+  const [Country, setCountry] = useState("");
 
   //service
   const signupmutate = usePostSignup();
@@ -21,7 +33,7 @@ const SignupForm = () => {
 
   //CUSTOM HOOK
   const countryOptions = useGetCountryOptions();
-  const stateOptions = useGetStateOptions();
+  const stateOptions = useGetStateOptions(Country);
 
   const validationSchema = object({
     first_name: string().required("required"),
@@ -45,15 +57,7 @@ const SignupForm = () => {
   const handleRedirection = () => router.push("/login");
 
   const formik = useFormik({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-      agree_terms: false,
-      country: [],
-    },
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       signupmutate.mutate(values, {
@@ -72,6 +76,12 @@ const SignupForm = () => {
       });
     },
   });
+
+  useEffect(() => {
+    if (formik?.values?.country?.value) {
+      setCountry(formik.values.country.value);
+    }
+  }, [formik.values.country]);
 
   return (
     <form
