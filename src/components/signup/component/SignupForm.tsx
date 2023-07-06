@@ -19,7 +19,8 @@ let initialValues: ISignUpInitialValues = {
   password: "",
   confirm_password: "",
   agree_terms: false,
-  country: [],
+  country: { label: "United States", value: "US" },
+  state: { label: "Texas", value: "TX" },
 };
 
 const SignupForm = () => {
@@ -76,12 +77,6 @@ const SignupForm = () => {
       });
     },
   });
-
-  useEffect(() => {
-    if (formik?.values?.country?.value) {
-      setCountry(formik.values.country.value);
-    }
-  }, [formik.values.country]);
 
   return (
     <form

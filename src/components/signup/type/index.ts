@@ -5,5 +5,11 @@ export interface ISignUpInitialValues {
   password: string;
   confirm_password: string;
   agree_terms: boolean;
-  country: any;
+  country: ISelectBoxType;
+  state: ISelectBoxType;
+}
+
+interface ISelectBoxType {
+  label: string;
+  value: string;
 }
