@@ -4,11 +4,11 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { IDatePicker } from "./types";
 
-const FormDate = (props: any) => {
+const FormDate = (props: IDatePicker) => {
   const {
     value,
-    onChange,
     label,
     name,
     error,
@@ -18,9 +18,6 @@ const FormDate = (props: any) => {
     disabled,
     sx,
     formik,
-    InputLabelProps = {
-      style: { fontSize: 14 },
-    },
   } = props;
 
   const [dateValue, setDateValue] = useState(value);

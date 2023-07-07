@@ -10,3 +10,16 @@ export interface ISelect {
   formik: any;
   options?: any;
 }
+
+export interface IDatePicker {
+  value: string;
+  label: string;
+  name: string;
+  error?: any;
+  helperText?: string;
+  disablePast: boolean;
+  disableFuture: boolean;
+  disabled?: boolean;
+  sx: any;
+  formik: any;
+}
