@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
+import { IGraphDataTypes, GraphContainerT } from "./types";
 
 ChartJS.register(
   CategoryScale,
@@ -25,14 +26,17 @@ ChartJS.register(
   Legend
 );
 
-const Graph = (props: any) => {
+const GraphComponent = (props: GraphContainerT) => {
   const { data, paginationData } = props;
-  const [chartData, setChartData] = useState<any>({ labels: [], datasets: [] });
+  const [chartData, setChartData] = useState<IGraphDataTypes>({
+    labels: [],
+    datasets: [],
+  });
 
   useEffect(() => {
     if (!data) return;
 
-    const chartData: any = {
+    const chartData: IGraphDataTypes = {
       labels: [],
       datasets: [
         {
@@ -106,4 +110,4 @@ const Graph = (props: any) => {
   );
 };
 
-export default Graph;
+export default GraphComponent;
